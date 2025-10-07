@@ -3,23 +3,26 @@ import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.io.IOException;
+import java.util.Scanner;
+
 public class NoteApp {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Title: ");
+
+        System.out.print("Enter note ID (integer): ");
+        int id = scanner.nextInt();
+        scanner.nextLine(); // Consumir el salto de línea
+
+        System.out.print("Enter note title: ");
         String title = scanner.nextLine();
 
-        System.out.print("Content: ");
-        String content = scanner.nextLine();
-
-        Note note = new Note(title, content);
-        note.display();
-
-        try (FileWriter writer = new FileWriter("notes.txt", true)) {
-            writer.write(note.toFileFormat() + "\n");
-            System.out.println("Note saved.");
+        try {
+            Note note = new Note(id, title); // Constructor con IOException
+            note.display();
         } catch (IOException e) {
-            System.out.println("Failed to save note: " + e.getMessage());
+            System.out.println("Error loading note content from file: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
