@@ -1,5 +1,17 @@
 package Notas;
 import java.io.*;
+//askndjasnd
+//asdnaksd
+//ajuisdbahjsbdfa
+//ajsdbjabsd
+/*
+* sdmnbfjasdf
+* kasdnfñas
+* sdkfnásldkjgf
+* asdnfñajsgnf
+* SDKFGNA´ÑSLFJGN
+* A,KFSDGN´ÑJASNGF
+*/
 
 public class Note {
     private int id;
