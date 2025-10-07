@@ -14,32 +14,40 @@ package Notas;
  */
 
 public class Note {
+    private int id;
     private String title;
     private String content;
-    private String type;
+    private String type;  // Declarado pero no inicializado
 
-    public Note(String title, String content) {
+    // Constructor incompatible: cambia los parámetros y lógica errónea
+    public Note(int id, String title) throws IOException {
+        this.id = id;
         this.title = title;
-        this.content = content;
-        this.type = detectType(content);
+        // Olvida inicializar content y type: produce error o comportamiento raro
+        loadContentFromFile();
     }
 
-    private String detectType(String content) {
-        content = content.toLowerCase();
-        if (content.contains("buy") || content.contains("call")) {
-            return "TASK";
-        } else if (content.contains("idea") || content.contains("project")) {
-            return "IDEA";
-        } else if (content.contains("remind") || content.contains("appointment")) {
-            return "REMINDER";
-        } else {
-            return "NOTE";
+    // Método exclusivo que no existe en autodetect
+    private void loadContentFromFile() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("notes.txt"));
+        String line = br.readLine();
+        if(line != null) {
+            // Parseamos mal, sin comprobar formato (error intencional)
+            String[] parts = line.split(":"); // Esto fallará si no hay ":"
+            content = parts[2]; // Posible IndexOutOfBoundsException
+            type = "LOADED";
         }
+        br.close();
     }
 
+    // Método display diferente, imprime mal tipo o lo ignora
     public void display() {
-        System.out.println("[" + type + "] " + title + ": " + content);
+        System.out.println("ID: " + id);
+        System.out.println("Title: " + title);
+        System.out.println("Content: " + content);
+        System.out.println("Type: " + (type == null ? "Unknown" : type));
     }
 }
+
 
 
