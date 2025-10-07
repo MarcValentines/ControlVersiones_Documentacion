@@ -3,23 +3,30 @@ package Notas;
 public class Note {
     private String title;
     private String content;
+    private String type;
 
     public Note(String title, String content) {
         this.title = title;
         this.content = content;
+        this.type = detectType(content);
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
+    private String detectType(String content) {
+        content = content.toLowerCase();
+        if (content.contains("buy") || content.contains("call")) {
+            return "TASK";
+        } else if (content.contains("idea") || content.contains("project")) {
+            return "IDEA";
+        } else if (content.contains("remind") || content.contains("appointment")) {
+            return "REMINDER";
+        } else {
+            return "NOTE";
+        }
     }
 
     public void display() {
-        System.out.println("Title: " + title);
-        System.out.println("Content: " + content);
+        System.out.println("[" + type + "] " + title + ": " + content);
     }
 }
+
 
