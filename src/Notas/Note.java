@@ -1,32 +1,31 @@
 package Notas;
 
 public class Note {
+    private static int counter = 1;
+    private int id;
     private String title;
     private String content;
-    private String type;
 
     public Note(String title, String content) {
+        this.id = counter++;
         this.title = title;
         this.content = content;
-        this.type = detectType(content);
     }
 
-    private String detectType(String content) {
-        content = content.toLowerCase();
-        if (content.contains("buy") || content.contains("call")) {
-            return "TASK";
-        } else if (content.contains("idea") || content.contains("project")) {
-            return "IDEA";
-        } else if (content.contains("remind") || content.contains("appointment")) {
-            return "REMINDER";
-        } else {
-            return "NOTE";
-        }
+    public int getId() {
+        return id;
     }
 
     public void display() {
-        System.out.println("[" + type + "] " + title + ": " + content);
+        System.out.println("ID: " + id);
+        System.out.println("Title: " + title);
+        System.out.println("Content: " + content);
+    }
+
+    public String toFileFormat() {
+        return id + ";" + title + ";" + content;
     }
 }
+
 
 
